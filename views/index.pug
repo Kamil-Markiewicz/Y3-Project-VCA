@@ -1,14 +1,14 @@
 extends layout
 
 block content
-  nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top
+  nav.navbar.navbar-toggleable-md.fixed-top.bg-inverse.navbar-inverse
     button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse',
-    data-target='#navbarsExampleDefault', aria-controls='navbarsExampleDefault',
+    data-target='#vcaNavbar', aria-controls='vcaNavbar',
     aria-expanded='false', aria-label='Toggle navigation')
       span.navbar-toggler-icon
-    a.navbar-brand(href='#') Navbar
-    #navbarsExampleDefault.collapse.navbar-collapse
-      ul.navbar-nav.mr-auto
+    a.navbar-brand(href='#') VCA
+    #vcaNavbar.collapse.navbar-collapse
+      ul.navbar-nav.mx-auto
         li.nav-item.active
           a.nav-link(href='#')
             | Home

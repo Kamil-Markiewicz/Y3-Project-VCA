@@ -9,3 +9,32 @@ a {
 .main-content {
   margin-top: 2em;
 }
+
+nav {
+  /*background-color: darkcyan;
+
+  li {
+    background-color: white;
+    margin: auto 2em;
+    a {
+      color: black;
+    }
+  }*/
+
+  li {
+    margin: auto 2em;
+
+    a {
+      color: lightblue;
+
+      &:hover {
+        color: lightcyan;
+      }
+    }
+  }
+
+  .navbar-brand {
+    color: white;
+  }
+}
+

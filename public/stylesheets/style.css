@@ -8,4 +8,23 @@ a {
 .main-content {
   margin-top: 2em; }
 
+nav {
+  /*background-color: darkcyan;
+
+  li {
+    background-color: white;
+    margin: auto 2em;
+    a {
+      color: black;
+    }
+  }*/ }
+  nav li {
+    margin: auto 2em; }
+    nav li a {
+      color: lightblue; }
+      nav li a:hover {
+        color: lightcyan; }
+  nav .navbar-brand {
+    color: white; }
+
 /*# sourceMappingURL=style.css.map */
