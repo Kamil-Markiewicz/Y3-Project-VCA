@@ -11,25 +11,26 @@ a {
 }
 
 nav {
-  /*background-color: darkcyan;
+
+  background-color: skyblue;
 
   li {
-    background-color: white;
-    margin: auto 2em;
-    a {
-      color: black;
-    }
-  }*/
-
-  li {
-    margin: auto 2em;
+    margin: auto 1em;
 
     a {
-      color: lightblue;
+      color: grey!important;
 
       &:hover {
         color: lightcyan;
       }
+
+    }
+
+  }
+
+  .active {
+    a.nav-link {
+    color: black!important;
     }
   }
 

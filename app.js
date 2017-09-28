@@ -1,15 +1,19 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var sassMiddleware = require('node-sass-middleware');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const sassMiddleware = require('node-sass-middleware');
+const shortid = require('shortid');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 
-var app = express();
+const app = express();
+
+// example of generation of unique login code for android app
+// console.log(shortid.generate());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,7 +42,7 @@ app.get('/', (req, res) => {
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

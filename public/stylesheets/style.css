@@ -9,21 +9,15 @@ a {
   margin-top: 2em; }
 
 nav {
-  /*background-color: darkcyan;
-
-  li {
-    background-color: white;
-    margin: auto 2em;
-    a {
-      color: black;
-    }
-  }*/ }
+  background-color: skyblue; }
   nav li {
-    margin: auto 2em; }
+    margin: auto 1em; }
     nav li a {
-      color: lightblue; }
+      color: grey !important; }
       nav li a:hover {
         color: lightcyan; }
+  nav .active a.nav-link {
+    color: black !important; }
   nav .navbar-brand {
     color: white; }
 

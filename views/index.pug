@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  nav.navbar.navbar-toggleable-md.fixed-top.bg-inverse.navbar-inverse
+  nav.navbar.navbar-toggleable-md.fixed-top.navbar-inverse
     button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse',
     data-target='#vcaNavbar', aria-controls='vcaNavbar',
     aria-expanded='false', aria-label='Toggle navigation')
@@ -9,22 +9,20 @@ block content
     a.navbar-brand(href='#') VCA
     #vcaNavbar.collapse.navbar-collapse
       ul.navbar-nav.mx-auto
-        li.nav-item.active
+        li.nav-item
           a.nav-link(href='#')
-            | Home
+            | Manage Patients
             span.sr-only (current)
         li.nav-item
-          a.nav-link(href='#') Medical
+          a.nav-link(href='#') Manage Geofencing
         li.nav-item
-          a.nav-link(href='#') Security
+          a.nav-link(href='#') Monitor Patient
         li.nav-item
-          a.nav-link(href='#') Management
-        li.nav-item
-          a.nav-link(href='#') Custom
+          a.nav-link(href='#') Remote Camera
 
   div.container
     div.row
       div.col-md-12.main-content
-        h1= title
-        p.text-left Welcome to #{title}
+        h1.text-center Welcome to #{title}
+        h3= "Please Login/Register:"
 
