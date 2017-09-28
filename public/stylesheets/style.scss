@@ -9,3 +9,33 @@ a {
 .main-content {
   margin-top: 2em;
 }
+
+nav {
+
+  background-color: skyblue;
+
+  li {
+    margin: auto 1em;
+
+    a {
+      color: grey!important;
+
+      &:hover {
+        color: lightcyan;
+      }
+
+    }
+
+  }
+
+  .active {
+    a.nav-link {
+    color: black!important;
+    }
+  }
+
+  .navbar-brand {
+    color: white;
+  }
+}
+
