@@ -5,10 +5,10 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const sassMiddleware = require('node-sass-middleware');
-const shortid = require('shortid');
+//const shortid = require('shortid');
 
 const index = require('./routes/index');
-const users = require('./routes/users');
+const home = require('./routes/home');
 
 const app = express();
 
@@ -34,10 +34,16 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/home', home);
 
+// Route homepage
 app.get('/', (req, res) => {
   req.render('index');
+})
+
+app.get('/home', (req, res) => {
+    req.render('home');
+    //req.render(home)
 })
 
 // catch 404 and forward to error handler

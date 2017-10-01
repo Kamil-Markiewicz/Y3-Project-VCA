@@ -7,6 +7,25 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
     body
+      nav.navbar.navbar-toggleable-md.fixed-top.navbar-inverse
+        button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse',
+        data-target='#vcaNavbar', aria-controls='vcaNavbar',
+        aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        a.navbar-brand(href='#') VCA
+        #vcaNavbar.collapse.navbar-collapse
+          ul.navbar-nav.mx-auto
+            li.nav-item
+              a.nav-link(href='#')
+                | Manage Patients
+                span.sr-only (current)
+            li.nav-item
+              a.nav-link(href='#') Manage Geofencing
+            li.nav-item
+              a.nav-link(href='#') Monitor Patient
+            li.nav-item
+              a.nav-link(href='#') Remote Camera
+
     block content
 
     script(src="https://code.jquery.com/jquery-3.1.1.slim.min.js")
