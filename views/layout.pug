@@ -31,3 +31,15 @@ html
     script(src="https://code.jquery.com/jquery-3.1.1.slim.min.js")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js")
+    script(src='https://www.gstatic.com/firebasejs/4.4.0/firebase.js')
+    script.
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAEh_yribiSb3kLjep5E_SbnC82u9YKC6I",
+            authDomain: "y3-project-vca.firebaseapp.com",
+            databaseURL: "https://y3-project-vca.firebaseio.com",
+            projectId: "y3-project-vca",
+            storageBucket: "y3-project-vca.appspot.com",
+            messagingSenderId: "714615832758"
+        };
+        firebase.initializeApp(config);

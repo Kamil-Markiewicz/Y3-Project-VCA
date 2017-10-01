@@ -38,13 +38,12 @@ app.use('/home', home);
 
 // Route homepage
 app.get('/', (req, res) => {
-  req.render('index');
-})
+  res.render('index');
+});
 
 app.get('/home', (req, res) => {
-    req.render('home');
-    //req.render(home)
-})
+  res.render('home');
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
