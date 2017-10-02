@@ -6,11 +6,19 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const sassMiddleware = require('node-sass-middleware');
 //const shortid = require('shortid');
+//const admin = require("firebase-admin");
 
 const index = require('./routes/index');
 const home = require('./routes/home');
 
 const app = express();
+
+//let serviceAccount = require("path/to/serviceAccountKey.json");
+
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: "https://y3-project-vca.firebaseio.com/"
+// });
 
 // example of generation of unique login code for android app
 // console.log(shortid.generate());
