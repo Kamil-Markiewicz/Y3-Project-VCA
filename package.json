@@ -8,8 +8,14 @@
   "dependencies": {
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
+<<<<<<< HEAD
     "debug": "^2.6.9",
     "express": "^4.15.5",
+=======
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "firebase-admin": "^5.3.0",
+>>>>>>> 3d5a2679df1fa32580517bde68e90a1f731ae1c1
     "morgan": "~1.8.1",
     "node-sass-middleware": "0.9.8",
     "pug": "~2.0.0-beta11",
