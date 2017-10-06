@@ -1,3 +1,4 @@
 .idea/*
 node_modules/*
 public/stylesheets/style.css.map
+/bin/serviceAccountKey.json
