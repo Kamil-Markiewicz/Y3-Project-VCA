@@ -5,12 +5,20 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const sassMiddleware = require('node-sass-middleware');
-const shortid = require('shortid');
+//const shortid = require('shortid');
+//const admin = require("firebase-admin");
 
 const index = require('./routes/index');
-const users = require('./routes/users');
+const home = require('./routes/home');
 
 const app = express();
+
+//let serviceAccount = require("path/to/serviceAccountKey.json");
+
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: "https://y3-project-vca.firebaseio.com/"
+// });
 
 // example of generation of unique login code for android app
 // console.log(shortid.generate());
@@ -34,11 +42,16 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/home', home);
 
+// Route homepage
 app.get('/', (req, res) => {
-  req.render('index');
-})
+  res.render('index');
+});
+
+app.get('/home', (req, res) => {
+  res.render('home');
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
