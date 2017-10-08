@@ -6,18 +6,30 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const sassMiddleware = require('node-sass-middleware');
 //const shortid = require('shortid');
-//const admin = require("firebase-admin");
+const firebase = require('firebase-admin');
+const functions = require('firebase-functions');
 
 const index = require('./routes/index');
 const home = require('./routes/home');
 
 const app = express();
+let patientData;
 
-//let serviceAccount = require("path/to/serviceAccountKey.json");
-
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
+// const serviceAccount = require("./bin/serviceAccountKey.json");
+//
+// firebase.initializeApp({
+//     credential: firebase.credential.cert(serviceAccount),
 //     databaseURL: "https://y3-project-vca.firebaseio.com/"
+// });
+//
+// function getTest() {
+//   const ref = firebase.database().ref('Patients');
+//   return ref.once('value').then(snap => snap.val())
+// }
+//
+// getTest().then(patients => {
+//   console.log(patients);
+//   patientData = patients;
 // });
 
 // example of generation of unique login code for android app
@@ -50,7 +62,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-  res.render('home');
+  res.render('home', {pat: this.patientData});
 });
 
 // catch 404 and forward to error handler
