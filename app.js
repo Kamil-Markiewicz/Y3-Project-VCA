@@ -13,25 +13,23 @@ const index = require('./routes/index');
 const home = require('./routes/home');
 
 const app = express();
-let patientData;
 
-// const serviceAccount = require("./bin/serviceAccountKey.json");
-//
-// firebase.initializeApp({
-//     credential: firebase.credential.cert(serviceAccount),
-//     databaseURL: "https://y3-project-vca.firebaseio.com/"
-// });
-//
-// function getTest() {
-//   const ref = firebase.database().ref('Patients');
-//   return ref.once('value').then(snap => snap.val())
-// }
-//
-// getTest().then(patients => {
-//   console.log(patients);
-//   patientData = patients;
-// });
+const serviceAccount = require("./bin/serviceAccountKey.json");
 
+firebase.initializeApp({
+    credential: firebase.credential.cert(serviceAccount),
+    databaseURL: "https://y3-project-vca.firebaseio.com/"
+});
+
+function getPatients() {
+  const ref = firebase.database().ref('Patients');
+  return ref.once('value').then(snap => snap.val())
+}
+
+getPatients().then(patients => {
+      console.log(patients);
+    }
+);
 // example of generation of unique login code for android app
 // console.log(shortid.generate());
 
@@ -62,7 +60,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-  res.render('home', {pat: this.patientData});
+  res.render('home');
 });
 
 // catch 404 and forward to error handler
