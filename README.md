@@ -1,7 +1,7 @@
 # Y3-Project-VCA
 3rd year Software Development group project, Virtual Care Assistant.
 
-  - Main goal is to provide safty for patients on the system
+  - Main goal is to provide safety for patients on the system
 
 ### Tech
 
