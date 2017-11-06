@@ -22,14 +22,16 @@ firebase.initializeApp({
 });
 
 function getPatients() {
-  const ref = firebase.database().ref('Patients');
+  const ref = firebase.database().ref('Carers');
   return ref.once('value').then(snap => snap.val())
 }
 
 getPatients().then(patients => {
-      console.log(patients);
+        console.log(JSON.stringify(patients.Daniel, null, 2));
+        app.locals.carer = patients.Daniel; //hard code login of carer for test
     }
 );
+
 // example of generation of unique login code for android app
 // console.log(shortid.generate());
 
