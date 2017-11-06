@@ -4,7 +4,21 @@ block content
   div.container
     div.row
       div.col-md-12.main-content
-        h2 Location of David
-        iframe#map(width="100%", height="600", frameborder="0", style="border:0"
-        src='https://www.google.com/maps/embed/v1/place?' +
-            'key=<API_KEY>&q=51.8860513,-8.5357577')
+        p(style="float: right; background-color: aqua; padding: 5px;") Logged in as Daniel
+        //#{carer.Patients.Billy.fname}
+        //h2 Monitor patients of Carer #{carer.Patients.Billy.fname}
+
+        for patient, index in carer.Patients
+
+          div.col-sm-6
+            h5 Location of #{index}
+
+            iframe(width="100%", height="400", frameborder="0", id="map" + index,
+            style="border:0; display:block;"
+            src='https://www.google.com/maps/embed/v1/place?' +
+            'key=AIzaSyDqIZZQknynh-WN6s5JNkyDG_HfVMY_cBU&q=' +
+            patient.long + ',' + patient.lat)
+
+            //button(
+            //onclick="document.getElementById('map" + index + "').display = 'none'"
+            //) View location of #{index}
