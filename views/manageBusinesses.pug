@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    div.container
+        div.row
+            div.col-md-12.main-content
+                form(method='POST' action='/manageBusinesses').form-signin.col-md-6.offset-3
+                    h3.form-signin-heading Add a Business
+                    div.form-group
+                        label(for='fname') Business Name
+                        input#fname.form-control(type='name', placeholder='Restaurant Name',
+                        required='true', autofocus='true' name='business_name')
+
+                    div.form-group
+                        label(for='website') Business Website
+                        input#website.form-control(type='name' name='website' placeholder='www.website.ie')
+
+                    div.form-group
+                        label(for='tel') Phone Number
+                        input#tel.form-control(type="tel" name='phone_number' placeholder="0871234567")
+
+                    div.form-group
+                        label(for='type') Business Type
+                        select#type.form-control(name='type')
+                            option(value='restaurants') Restarant
+                            option(value='shopping') Shop
+                            option(value='taxis') Taxi
+
+                    input#submit.btn.btn-info(type='submit')

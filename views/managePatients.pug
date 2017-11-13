@@ -7,24 +7,29 @@ block content
                 form(method='POST' action='/managePatients').form-signin.col-md-6.offset-3
                     h3.form-signin-heading Add a patient
                     div.form-group
-                        label.sr-only(for='fname') Patient First Name
+                        label(for='fname') Patient First Name
                         input#fname.form-control(type='name', placeholder='First Name',
                         required='true', autofocus='true' name='fname')
                     div.form-group
-                        label.sr-only(for='lname') Patient Last Name
+                        label(for='lname') Patient Last Name
                         input#lname.form-control(type='name', placeholder='Last Name',
                         required='true', autofocus='true' name='lname')
                     div.form-group
-                        label.sr-only(for='age') Patient Age
+                        label(for='age') Patient Age
                         input#age.form-control(type='name', placeholder='Age',
                         required='true', autofocus='true' name='age')
                     div.form-group
-                        label.sr-only(for='condition') Condition
+                        label(for='condition') Condition
                         select#condition.form-control(name='condition')
                             option(value='alzheimers') Alzheimer's
                             option(value='dementia') Dementia
 
-                    select.form-control(name='carerID')
+                    div.form-group
+                        label(for='tel') First of kin contact number
+                        input#tel.form-control(type="tel" placeholder="0871234567")
+
+                    label(for=carer) Carer
+                    select#carer.form-control(name='carerID')
                         option(value='OuEriORcMkZIdX510lRnYdc7ksF2') John
                         option(value='OuEriORcMkZIdX510lRnYdc7ksF2') Sean
 

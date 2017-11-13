@@ -24,4 +24,11 @@ nav {
 input[type='email'], input[type='password'] {
   margin-bottom: 1em; }
 
+input[type='submit'] {
+  margin-top: 2em;
+  text-align: center; }
+
+.card-header {
+  text-transform: capitalize; }
+
 /*# sourceMappingURL=style.css.map */
