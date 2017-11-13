@@ -11,7 +11,8 @@ const functions = require('firebase-functions');
 
 const index = require('./routes/index');
 const home = require('./routes/home');
-const managePatients = require('./routes/managePatients')
+const managePatients = require('./routes/managePatients');
+const manageBusinesses = require('./routes/manageBusinesses');
 
 const app = express();
 
@@ -68,6 +69,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/home', home);
 app.use('/managePatients', managePatients);
+app.use('/manageBusinesses', manageBusinesses);
 
 // Route homepage
 app.get('/', (req, res) => {
@@ -82,13 +84,41 @@ app.get('/managePatients', (req, res) => {
   res.render('managePatients');
 });
 
+app.get('/manageBusinesses', (req, res) => {
+  res.render('manageBusinesses');
+});
+
 app.post('/managePatients', urlencodedParser, (req, res) => {
   console.log(req.body);
 
   //const ref = firebase.database().ref('patients_flattened');
   let newPatient = firebase.database().ref('patients_flattened');
   newPatient.push(req.body);
+  console.log(newPatient.ref.key);
   res.render('managePatients');
+});
+
+app.post('/manageBusinesses', urlencodedParser, (req, res) => {
+  console.log(req.body);
+  let ref = firebase.database().ref('businesses');
+
+  if (req.body.type == 'restaurants') {
+    ref.child('restaurants').push(req.body);
+    //ref.child('restaurants').child().set(ref.body);
+  } else if (req.body.type == 'shopping') {
+      ref.child('shopping').push(req.body);
+  } else {
+    // todo: Maybe some error checking should be done instead?
+    ref.child('taxis').push(req.body);
+  }
+
+  res.render('manageBusinesses');
+});
+
+// todo: remove patient
+app.post('/removePatient', urlencodedParser, (req, res) => {
+  //let ref = firebase.database.ref('patients_flattened');
+  //ref.remove(req.body);
 });
 
 // catch 404 and forward to error handler
