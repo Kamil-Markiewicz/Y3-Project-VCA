@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    div.container
+        div.row
+            div.col-md-12.main-content
+                form(method='POST' action='/managePatients').form-signin.col-md-6.offset-3
+                    h3.form-signin-heading Add a patient
+                    div.form-group
+                        label.sr-only(for='fname') Patient First Name
+                        input#fname.form-control(type='name', placeholder='First Name',
+                        required='true', autofocus='true' name='fname')
+                    div.form-group
+                        label.sr-only(for='lname') Patient Last Name
+                        input#lname.form-control(type='name', placeholder='Last Name',
+                        required='true', autofocus='true' name='lname')
+                    div.form-group
+                        label.sr-only(for='age') Patient Age
+                        input#age.form-control(type='name', placeholder='Age',
+                        required='true', autofocus='true' name='age')
+                    div.form-group
+                        label.sr-only(for='condition') Condition
+                        select#condition.form-control(name='condition')
+                            option(value='alzheimers') Alzheimer's
+                            option(value='dementia') Dementia
+
+                    select.form-control(name='carerID')
+                        option(value='OuEriORcMkZIdX510lRnYdc7ksF2') John
+                        option(value='OuEriORcMkZIdX510lRnYdc7ksF2') Sean
+
+                    input#submit.btn.btn-info(type='submit')

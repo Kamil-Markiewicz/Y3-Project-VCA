@@ -11,26 +11,38 @@ const functions = require('firebase-functions');
 
 const index = require('./routes/index');
 const home = require('./routes/home');
+const managePatients = require('./routes/managePatients')
 
 const app = express();
 
 const serviceAccount = require("./bin/serviceAccountKey.json");
 
 firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount),
-    databaseURL: "https://y3-project-vca.firebaseio.com/"
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: "https://y3-project-vca.firebaseio.com/"
+});
+
+function carerLogin() {
+  const ref = firebase.database().ref('carers_flattened');
+  return ref.once('value').then(snap => snap)
+}
+
+carerLogin().then(carers => {
+  app.locals.loggedInCarer = 'OuEriORcMkZIdX510lRnYdc7ksF2';
+  console.log(JSON.stringify(carers, null, 2));
 });
 
 function getPatients() {
-  const ref = firebase.database().ref('Carers');
+  const ref = firebase.database().ref('patients_flattened');
   return ref.once('value').then(snap => snap.val())
 }
 
 getPatients().then(patients => {
-        console.log(JSON.stringify(patients.Daniel, null, 2));
-        app.locals.carer = patients.Daniel; //hard code login of carer for test
-    }
-);
+  //console.log(JSON.stringify(patients, null, 2));
+  app.locals.patients = patients;
+});
+
+let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // example of generation of unique login code for android app
 // console.log(shortid.generate());
@@ -48,13 +60,14 @@ app.use(cookieParser());
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: false, // true = .sass and false = .scss
+  indentedSyntax: false,
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/home', home);
+app.use('/managePatients', managePatients);
 
 // Route homepage
 app.get('/', (req, res) => {
@@ -63,6 +76,19 @@ app.get('/', (req, res) => {
 
 app.get('/home', (req, res) => {
   res.render('home');
+});
+
+app.get('/managePatients', (req, res) => {
+  res.render('managePatients');
+});
+
+app.post('/managePatients', urlencodedParser, (req, res) => {
+  console.log(req.body);
+
+  //const ref = firebase.database().ref('patients_flattened');
+  let newPatient = firebase.database().ref('patients_flattened');
+  newPatient.push(req.body);
+  res.render('managePatients');
 });
 
 // catch 404 and forward to error handler
