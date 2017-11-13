@@ -7,17 +7,18 @@ block content
         p(style="float: right; background-color: aqua; padding: 5px;") Logged in as Daniel
         //#{carer.Patients.Billy.fname}
         //h2 Monitor patients of Carer #{carer.Patients.Billy.fname}
+        div.row
+        for patient, carer in patients
 
-        for patient, index in carer.Patients
+          div.col-sm-6.offset-sm-3
+            if carer = loggedInCarer
+              h5 Location of #{patient.fname}
 
-          div.col-sm-6
-            h5 Location of #{index}
-
-            iframe(width="100%", height="400", frameborder="0", id="map" + index,
-            style="border:0; display:block;"
-            src='https://www.google.com/maps/embed/v1/place?' +
-            'key=AIzaSyDqIZZQknynh-WN6s5JNkyDG_HfVMY_cBU&q=' +
-            patient.long + ',' + patient.lat)
+              iframe(width="100%", height="400", frameborder="0", id="map" + index,
+              style="border:0; display:block;"
+              src='https://www.google.com/maps/embed/v1/place?' +
+              'key=AIzaSyDqIZZQknynh-WN6s5JNkyDG_HfVMY_cBU&q=' +
+              patient.long + ',' + patient.lat)
 
             //button(
             //onclick="document.getElementById('map" + index + "').display = 'none'"
