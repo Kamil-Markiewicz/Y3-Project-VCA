@@ -1,20 +1,87 @@
-extends layout
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet',href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
+        meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
-block content
-  div.container
-    div.row
-      div.col.md-12.main-content
-        h1.text-center Welcome to #{title}
+        script(src="https://code.jquery.com/jquery-3.1.1.slim.min.js")
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js")
 
-        form.form-signin.col-md-6.offset-3
-          h3.form-signin-heading Please log in
-          label.sr-only(for='inputEmail') Email address
-          input#inputEmail.form-control(type='email', placeholder='Email address',
-          required='true', autofocus='true')
-          label.sr-only(for='inputPassword') Password
-          input#inputPassword.form-control(type='password', placeholder='Password', required='true')
-          //.checkbox
-            //label
-            //  input(type='checkbox', value='remember-me')
-            //  |  Remember me
-          button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
+        //Firebase APIs
+        script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js')
+        script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js')
+        script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js')
+        script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js')
+        script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase.js')
+        script.
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyAEh_yribiSb3kLjep5E_SbnC82u9YKC6I",
+                authDomain: "y3-project-vca.firebaseapp.com",
+                databaseURL: "https://y3-project-vca.firebaseio.com",
+                projectId: "y3-project-vca",
+                storageBucket: "y3-project-vca.appspot.com",
+                messagingSenderId: "714615832758"
+            };
+            firebase.initializeApp(config);
+
+        script.
+            // POST uID to web-server by setting invisible form value to user's uID and submitting it
+            function postUID(uID) {
+            $("input[id=uIDInput]").val(uID);
+            $("#uIDForm").submit();
+            };
+
+            // on-click listener for submit button
+            $(document).ready(function () {
+                $("#submitButton").click(function () {
+                    signIn($("#inputEmail").val(), $("#inputPassword").val());
+                })
+            });
+
+            /* this is a callback that will get called when the user's suth-state changes.
+            It is also called once as soon as it is passed, which will allow for auto-sign-in. */
+            firebase.auth().onAuthStateChanged(function(user){
+                if (user) {
+                    postUID(user.uid);
+                    console.log("Firebase callback: user is signed in.");
+                    console.log("    -uID is:" + user.uid);
+                }else {
+                    console.log("Firebase callback: No user currently signed in.");
+                    }
+                })
+
+            function signIn(email, password){ //script for auth-ing with Firebase
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(
+                    function(error){
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log("error with sign-in:");
+                        console.log(errorCode);
+                        console.log(errorMessage);
+                    }
+                )
+            };
+
+    body
+        div.container
+            div.row
+                div.col.md-12.main-content
+                    h1.text-center Welcome to #{title}
+                    form(id="uIDForm" method="POST" action="/loginCarer")
+                        input#uIDInput(hidden, name="uID")
+                    form(id="loginForm").form-signin.col-md-6.offset-3
+                        h3.form-signin-heading Please log in
+                        label.sr-only(for='inputEmail') Email address
+                        input#inputEmail.form-control(name="email", type='email', placeholder='Email address',
+                        required='true', autofocus='true')
+                        label.sr-only(for='inputPassword') Password
+                        input#inputPassword.form-control(name="password", type='password', placeholder='Password', required='true')
+                        //.checkbox
+                            //label
+                            //  input(type='checkbox', value='remember-me')
+                            //  |  Remember me
+                        button(id="submitButton" type="button").btn.btn-lg.btn-primary.btn-block Sign in

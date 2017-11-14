@@ -6,30 +6,65 @@ html
     link(rel='stylesheet',href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
     meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
-    body
-      nav.navbar.navbar-toggleable-md.fixed-top.navbar-inverse
-        button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse',
-        data-target='#vcaNavbar', aria-controls='vcaNavbar',
-        aria-expanded='false', aria-label='Toggle navigation')
-          span.navbar-toggler-icon
-        a.navbar-brand(href='/') VCA
-        #vcaNavbar.collapse.navbar-collapse
-          ul.navbar-nav.mx-auto
-            li.nav-item
-              a.nav-link(href='/managePatients')
-                | Manage Patients
-                span.sr-only (current)
-            li.nav-item
-              a.nav-link(href='#') Manage Geofencing
-            li.nav-item
-              a.nav-link(href='/home') Monitor Patient
-            li.nav-item
-              a.nav-link(href='/manageBusinesses') Manage Restaurants
-            li.nav-item
-              a.nav-link(href='#') Remote Camera
-
-    block content
-
-    script(src="https://code.jquery.com/jquery-3.1.1.slim.min.js")
+    script(src="https://code.jquery.com/jquery-3.1.1.min.js")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js")
+
+    //Firebase APIs
+    script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js')
+    script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js')
+    script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js')
+    script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js')
+    script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase.js')
+    script.
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAEh_yribiSb3kLjep5E_SbnC82u9YKC6I",
+            authDomain: "y3-project-vca.firebaseapp.com",
+            databaseURL: "https://y3-project-vca.firebaseio.com",
+            projectId: "y3-project-vca",
+            storageBucket: "y3-project-vca.appspot.com",
+            messagingSenderId: "714615832758"
+        };
+        firebase.initializeApp(config);
+
+    block additionalScripts
+
+    script.
+      $(document).ready( function(){
+          $("#logoutButton").click(function(){
+              firebase.auth().signOut().then(
+                  function(){
+                      $("#logoutForm").submit();
+                  }
+              );
+          })
+      });
+
+
+
+  body
+    nav.navbar.navbar-toggleable-md.fixed-top.navbar-inverse
+      button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse',
+      data-target='#vcaNavbar', aria-controls='vcaNavbar',
+      aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      a.navbar-brand(href='/') VCA
+      #vcaNavbar.collapse.navbar-collapse
+        ul.navbar-nav.mx-auto
+          li.nav-item
+            a.nav-link(href='/managePatients')
+              | Manage Patients
+              span.sr-only (current)
+          li.nav-item
+            a.nav-link(href='#') Manage Geofencing
+          li.nav-item
+            a.nav-link(href='/home') Monitor Patient
+          li.nav-item
+            a.nav-link(href='/manageBusinesses') Manage Restaurants
+          li.nav-item
+            a.nav-link(href='#') Remote Camera
+          li.nav-item
+            form#logoutForm(method="GET", hidden, action="/")
+            a#logoutButton.nav-link(href="#") Logout
+    block content
