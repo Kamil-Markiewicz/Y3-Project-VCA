@@ -29,7 +29,6 @@ function carerLogin() {
 }
 
 carerLogin().then(carers => {
-  app.locals.loggedInCarer = 'OuEriORcMkZIdX510lRnYdc7ksF2';
   console.log(JSON.stringify(carers, null, 2));
 });
 
@@ -43,7 +42,7 @@ getPatients().then(patients => {
   app.locals.patients = patients;
 });
 
-let urlencodedParser = bodyParser.urlencoded({ extended: false })
+let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // example of generation of unique login code for android app
 // console.log(shortid.generate());
@@ -119,6 +118,16 @@ app.post('/manageBusinesses', urlencodedParser, (req, res) => {
 app.post('/removePatient', urlencodedParser, (req, res) => {
   //let ref = firebase.database.ref('patients_flattened');
   //ref.remove(req.body);
+});
+
+
+app.post('/loginCarer', urlencodedParser, (req, res) => {
+  data = req.body;
+  uID = data.uID;
+  console.log("uID Received: " + uID);
+
+  //
+  res.render('home');
 });
 
 // catch 404 and forward to error handler
