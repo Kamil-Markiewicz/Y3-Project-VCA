@@ -8,9 +8,10 @@ block content
         //#{carer.Patients.Billy.fname}
         //h2 Monitor patients of Carer #{carer.Patients.Billy.fname}
         div.row
-        for patient in patients
+        for patient, patientId in patients
           div.col-sm-12
             .card
+              h1=test
               h3.card-header Name: #{patient.fname} #{patient.lname}
               .card-block
                 h4.card-title Condition: #{patient.condition}
@@ -18,13 +19,18 @@ block content
                 p.card-text
                   a(type="tel" href="tel:" + patient.contactNo) #{patient.contactNo}
                 a.btn.btn-primary(href='#') View location
+                form(action="/removePatient/" method="POST")
+                  input.hidden(type="hidden" name="patientId" value=patientId)
+                  input(type="submit" value="Remove Patient").btn.btn-danger
 
-
-              iframe(width="100%", height="400", frameborder="0", id="map" + index,
-              style="border:0; display:block;"
-              src='https://www.google.com/maps/embed/v1/place?' +
-              'key=AIzaSyDqIZZQknynh-WN6s5JNkyDG_HfVMY_cBU&q=' +
-              patient.long + ',' + patient.lat)
+              if patient.lat != undefined && patient.long != undefined
+                iframe(width="100%", height="400", frameborder="0", id="map" + index,
+                style="border:0; display:block;"
+                src='https://www.google.com/maps/embed/v1/place?' +
+                'key=AIzaSyDqIZZQknynh-WN6s5JNkyDG_HfVMY_cBU&q=' +
+                patient.lat + ',' + patient.long)
+              else
+                h5.text-center No Location data stored
 
             //button(
             //onclick="document.getElementById('map" + index + "').display = 'none'"

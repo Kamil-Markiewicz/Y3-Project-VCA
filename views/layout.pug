@@ -3,7 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet',href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
     meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
     script(src="https://code.jquery.com/jquery-3.1.1.min.js")
@@ -31,7 +31,7 @@ html
     block additionalScripts
 
     script.
-      $(document).ready( function(){
+      $(document).ready(function(){
           $("#logoutButton").click(function(){
               firebase.auth().signOut().then(
                   function(){
@@ -40,8 +40,6 @@ html
               );
           })
       });
-
-
 
   body
     nav.navbar.navbar-toggleable-md.fixed-top.navbar-inverse
