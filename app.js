@@ -33,14 +33,16 @@ carerLogin().then(carers => {
 });
 
 function getPatients() {
+  console.log("231");
   const ref = firebase.database().ref('patients_flattened');
   return ref.once('value').then(snap => snap.val())
+
+  .then(patients => {
+      console.log(JSON.stringify(patients, null, 2));
+      app.locals.patients = patients;
+  });
 }
 
-getPatients().then(patients => {
-  //console.log(JSON.stringify(patients, null, 2));
-  app.locals.patients = patients;
-});
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -76,6 +78,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
+  getPatients();
   res.render('home');
 });
 
@@ -87,46 +90,48 @@ app.get('/manageBusinesses', (req, res) => {
   res.render('manageBusinesses');
 });
 
+// add patient endpoint
 app.post('/managePatients', urlencodedParser, (req, res) => {
   console.log(req.body);
 
-  //const ref = firebase.database().ref('patients_flattened');
   let newPatient = firebase.database().ref('patients_flattened');
   newPatient.push(req.body);
   console.log(newPatient.ref.key);
   res.render('managePatients');
 });
 
+// add restaurant endpoint
 app.post('/manageBusinesses', urlencodedParser, (req, res) => {
   console.log(req.body);
   let ref = firebase.database().ref('businesses');
 
-  if (req.body.type == 'restaurants') {
+  if (req.body.type === 'restaurants') {
     ref.child('restaurants').push(req.body);
     //ref.child('restaurants').child().set(ref.body);
-  } else if (req.body.type == 'shopping') {
+  } else if (req.body.type === 'shopping') {
       ref.child('shopping').push(req.body);
   } else {
-    // todo: Maybe some error checking should be done instead?
+    // todo: Maybe some error checking?
     ref.child('taxis').push(req.body);
   }
 
   res.render('manageBusinesses');
 });
 
-// todo: remove patient
+// remove patient endpoint
 app.post('/removePatient', urlencodedParser, (req, res) => {
-  //let ref = firebase.database.ref('patients_flattened');
-  //ref.remove(req.body);
+  let ref = firebase.database().ref('patients_flattened');
+  ref.child(req.body.patientId).remove();
+  console.log(`Removed patient ${req.body.patientId}`);
+  res.render('home');
 });
 
-
+// carer login endpoint
 app.post('/loginCarer', urlencodedParser, (req, res) => {
   data = req.body;
   uID = data.uID;
   console.log("uID Received: " + uID);
 
-  //
   res.render('home');
 });
 
