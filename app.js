@@ -5,9 +5,9 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const sassMiddleware = require('node-sass-middleware');
-//const shortid = require('shortid');
 const firebase = require('firebase-admin');
 const functions = require('firebase-functions');
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 const index = require('./routes/index');
 const home = require('./routes/home');
@@ -36,18 +36,12 @@ function getPatients() {
   console.log("231");
   const ref = firebase.database().ref('patients_flattened');
   return ref.once('value').then(snap => snap.val())
-
-  .then(patients => {
-      console.log(JSON.stringify(patients, null, 2));
-      app.locals.patients = patients;
-  });
 }
 
-
-let urlencodedParser = bodyParser.urlencoded({ extended: false });
-
-// example of generation of unique login code for android app
-// console.log(shortid.generate());
+getPatients().then(patients => {
+    console.log(JSON.stringify(patients, null, 2));
+    app.locals.patients = patients;
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -107,11 +101,9 @@ app.post('/manageBusinesses', urlencodedParser, (req, res) => {
 
   if (req.body.type === 'restaurants') {
     ref.child('restaurants').push(req.body);
-    //ref.child('restaurants').child().set(ref.body);
   } else if (req.body.type === 'shopping') {
       ref.child('shopping').push(req.body);
   } else {
-    // todo: Maybe some error checking?
     ref.child('taxis').push(req.body);
   }
 
@@ -121,9 +113,15 @@ app.post('/manageBusinesses', urlencodedParser, (req, res) => {
 // remove patient endpoint
 app.post('/removePatient', urlencodedParser, (req, res) => {
   let ref = firebase.database().ref('patients_flattened');
-  ref.child(req.body.patientId).remove();
+  ref.child(req.body.patientId).remove().then(() => {
+      getPatients().then((patients) => {
+          app.locals.patients = patients
+      }).then(() => {
+          res.render('home');
+      });
+  });
+
   console.log(`Removed patient ${req.body.patientId}`);
-  res.render('home');
 });
 
 // carer login endpoint
