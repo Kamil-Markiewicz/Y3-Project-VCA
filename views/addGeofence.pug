@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    div.container
+        div.row
+            div.col-md-12.main-content
+                form(method='POST' action='/addGeofence').form-signin.col-md-6.offset-3
+                    h3.form-signin-heading Add a Geofence
+                    div.form-group
+                        label(for='address') Address
+                        input.form-control(type='name' id='address', placeholder='Address',
+                        required='true', autofocus='true' name='address')
+                    div.form-group(style="display: none;")
+                        input.form-control(type='number' id='lat', placeholder='Address',
+                        autofocus='true' name='lat')
+                    div.form-group(style="display: none;")
+                        input.form-control(type='number' id='long', autofocus='true' name='long')
+                    div.form-group
+                        label(for='patient') Patient
+                        select.form-control(name='condition' id='patient')
+                            option(value='Patient1') Patient1
+                            option(value='Patient2') Patient2
+
+                    label(for='carer') Carer
+                    select.form-control(name='carerID' id='carer')
+                        option(value='OuEriORcMkZIdX510lRnYdc7ksF2') John
+                        option(value='OuEriORcMkZIdX510lRnYdc7ksF2') Sean
+
+                    input.btn.btn-info(type='submit' id='submit')

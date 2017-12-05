@@ -1,18 +1,19 @@
-const express = require('express');
-const path = require('path');
-const favicon = require('serve-favicon');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const sassMiddleware = require('node-sass-middleware');
-const firebase = require('firebase-admin');
-const functions = require('firebase-functions');
+const express = require("express");
+const path = require("path");
+const favicon = require("serve-favicon");
+const logger = require("morgan");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const sassMiddleware = require("node-sass-middleware");
+const firebase = require("firebase-admin");
+const functions = require("firebase-functions");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const index = require('./routes/index');
-const home = require('./routes/home');
-const managePatients = require('./routes/managePatients');
-const manageBusinesses = require('./routes/manageBusinesses');
+const index = require("./routes/index");
+const home = require("./routes/home");
+const addPatient = require("./routes/addPatient");
+const addGeofence = require('./routes/addGeofence');
+const manageBusinesses = require("./routes/manageBusinesses");
 
 const app = express();
 
@@ -24,8 +25,8 @@ firebase.initializeApp({
 });
 
 function carerLogin() {
-  const ref = firebase.database().ref('carers_flattened');
-  return ref.once('value').then(snap => snap)
+  const ref = firebase.database().ref("carers_flattened");
+  return ref.once("value").then(snap => snap)
 }
 
 carerLogin().then(carers => {
@@ -33,9 +34,8 @@ carerLogin().then(carers => {
 });
 
 function getPatients() {
-  console.log("231");
-  const ref = firebase.database().ref('patients_flattened');
-  return ref.once('value').then(snap => snap.val())
+  const ref = firebase.database().ref("patients_flattened");
+  return ref.once("value").then(snap => snap.val())
 }
 
 getPatients().then(patients => {
@@ -44,80 +44,92 @@ getPatients().then(patients => {
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+//app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
+  src: path.join(__dirname, "public"),
+  dest: path.join(__dirname, "public"),
   indentedSyntax: false,
   sourceMap: true
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use('/', index);
-app.use('/home', home);
-app.use('/managePatients', managePatients);
-app.use('/manageBusinesses', manageBusinesses);
+app.use("/", index);
+app.use("/home", home);
+app.use("/addPatient", addPatient);
+app.use("/addGeofence", addGeofence);
+app.use("/manageBusinesses", manageBusinesses);
 
 // Route homepage
-app.get('/', (req, res) => {
-  res.render('index');
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
-app.get('/home', (req, res) => {
-  getPatients();
-  res.render('home');
+app.get("/home", (req, res) => {
+  getPatients().then(patients => {
+      app.locals.patients = patients;
+  }).then(() => {
+      res.render("home");
+  });
+
 });
 
-app.get('/managePatients', (req, res) => {
-  res.render('managePatients');
+app.get("/addPatient", (req, res) => {
+  res.render("addPatient");
 });
 
-app.get('/manageBusinesses', (req, res) => {
-  res.render('manageBusinesses');
+app.get("/addGeofence", (req, res)=> {
+    res.render("addGeofence");
+});
+
+app.get("/manageBusinesses", (req, res) => {
+  res.render("manageBusinesses");
 });
 
 // add patient endpoint
-app.post('/managePatients', urlencodedParser, (req, res) => {
+app.post("/addPatient", urlencodedParser, (req, res) => {
   console.log(req.body);
 
-  let newPatient = firebase.database().ref('patients_flattened');
+  let newPatient = firebase.database().ref("patients_flattened");
   newPatient.push(req.body);
   console.log(newPatient.ref.key);
-  res.render('managePatients');
+  res.render("addPatient");
 });
 
 // add restaurant endpoint
-app.post('/manageBusinesses', urlencodedParser, (req, res) => {
+app.post("/manageBusinesses", urlencodedParser, (req, res) => {
   console.log(req.body);
-  let ref = firebase.database().ref('businesses');
+  let ref = firebase.database().ref("businesses");
 
-  if (req.body.type === 'restaurants') {
-    ref.child('restaurants').push(req.body);
-  } else if (req.body.type === 'shopping') {
-      ref.child('shopping').push(req.body);
-  } else {
-    ref.child('taxis').push(req.body);
+  switch (req.body.type) {
+      case "restaurants":
+        ref.child("restaurants").push(req.body);
+        break;
+      case "shopping":
+          ref.child("shopping").push(req.body);
+          break;
+      default:
+        ref.child("taxis").push(req.body);
   }
 
-  res.render('manageBusinesses');
+  res.render("manageBusinesses");
 });
 
 // remove patient endpoint
-app.post('/removePatient', urlencodedParser, (req, res) => {
-  let ref = firebase.database().ref('patients_flattened');
+app.post("/removePatient", urlencodedParser, (req, res) => {
+  let ref = firebase.database().ref("patients_flattened");
   ref.child(req.body.patientId).remove().then(() => {
       getPatients().then((patients) => {
           app.locals.patients = patients
       }).then(() => {
-          res.render('home');
+          res.redirect("/home");
       });
   });
 
@@ -125,17 +137,17 @@ app.post('/removePatient', urlencodedParser, (req, res) => {
 });
 
 // carer login endpoint
-app.post('/loginCarer', urlencodedParser, (req, res) => {
+app.post("/loginCarer", urlencodedParser, (req, res) => {
   data = req.body;
   uID = data.uID;
   console.log("uID Received: " + uID);
 
-  res.render('home');
+  res.render("home");
 });
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  let err = new Error('Not Found');
+  let err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
@@ -144,11 +156,11 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render("error");
 });
 
 module.exports = app;

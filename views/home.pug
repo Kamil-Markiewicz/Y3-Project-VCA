@@ -6,10 +6,11 @@ block content
 
       div.col-md-12.main-content
         div.row
+          //form
+            input(type="search" name="search" id="search").form-control
         for patient, patientId in patients
           div.col-sm-12
             .card
-              h1=test
               h3.card-header Name: #{patient.fname} #{patient.lname}
               .card-block
                 h4.card-title Condition: #{patient.condition}
