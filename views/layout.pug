@@ -3,12 +3,13 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/materialize.min.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
     script(src="https://code.jquery.com/jquery-3.1.1.min.js")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js")
 
     //Firebase APIs
     script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js')
@@ -38,16 +39,29 @@ html
                       $("#logoutForm").submit();
                   }
               );
-          })
+          });
+
+          $('select').material_select();
       });
 
   body
     nav.light-blue(role='navigation')
      .nav-wrapper.container
-      a#logo-container.brand-logo(href='#') Logo
-      ul.right.hide-on-med-and-down
-       li
-        a(href='#') Navbar Link
+      //a#logo-container.brand-logo(href='#') Logo
+      ul.left.hide-on-med-and-down
+          li
+              a(href='/addPatient') Add Patient
+          li
+              a(href='#') Manage Geofencing
+          li
+              a(href='/home') Monitor Patient
+          li
+              a(href='/manageBusinesses') Manage Restaurants
+          li
+              a(href='#') Remote Camera
+          li
+              form#logoutForm(method="GET", hidden, action="/")
+              a#logoutButton(href="#") Logout
       ul#nav-mobile.side-nav
        li
         a(href='#') Navbar Link

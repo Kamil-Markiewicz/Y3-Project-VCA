@@ -142,7 +142,7 @@ app.post("/loginCarer", urlencodedParser, (req, res) => {
   uID = data.uID;
   console.log("uID Received: " + uID);
 
-  res.render("home");
+  res.redirect("/home");
 });
 
 // catch 404 and forward to error handler

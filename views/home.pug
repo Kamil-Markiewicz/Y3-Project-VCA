@@ -2,13 +2,11 @@ extends layout
 
 block content
   div.container
-    div.row
-
-      div.col-md-12.main-content
-        div.row
-          //form
-            input(type="search" name="search" id="search").form-control
-        for patient, patientId in patients
+    div.row.home
+      //form
+        input(type="search" name="search" id="search").form-control
+      for patient, patientId in patients
+        .col.s12
           .card.light-blue
             .card-content.white-text
               span.card-title Name: #{patient.fname} #{patient.lname}
@@ -33,4 +31,4 @@ block content
 
             //button(
             //onclick="document.getElementById('map" + index + "').display = 'none'"
-            //) View location of #{index}
+          //) View location of #{index}

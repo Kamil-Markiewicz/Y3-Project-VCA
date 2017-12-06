@@ -2,13 +2,12 @@ doctype html
 html
     head
         title= title
+        link(rel='stylesheet',href='/stylesheets/materialize.min.css')
         link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet',href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
         meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
         script(src="https://code.jquery.com/jquery-3.1.1.slim.min.js")
         script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
-        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js")
 
         //Firebase APIs
         script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js')
@@ -69,12 +68,12 @@ html
     body
         div.container
             div.row
-                div.col.md-12.main-content
+                div.main-content
                     h1.text-center Welcome to #{title}
                     form(id="uIDForm" method="POST" action="/loginCarer")
                         input#uIDInput(hidden, name="uID")
-                    form(id="loginForm").form-signin.col-md-6.offset-3
-                        h3.form-signin-heading Please log in
+                    form(id="loginForm").form-signin
+                        h3.form-signin-heading Please login
                         label.sr-only(for='inputEmail') Email address
                         input#inputEmail.form-control(name="email", type='email', placeholder='Email address',
                         required='true', autofocus='true')
