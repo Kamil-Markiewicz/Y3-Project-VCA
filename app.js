@@ -96,10 +96,29 @@ app.get("/manageBusinesses", (req, res) => {
 // add patient endpoint
 app.post("/addPatient", urlencodedParser, (req, res) => {
   console.log(req.body);
+  let user_data = req.body;
 
-  let newPatient = firebase.database().ref("patients_flattened");
-  newPatient.push(req.body);
-  console.log(newPatient.ref.key);
+  firebase.auth().createUser({
+      email: user_data.user_email,
+      password: user_data.user_password
+  }).then(function(userRecord) {
+      let path = "patients_flattened/" + userRecord.uid;
+      let patient_ref = firebase.database().ref(path);
+      patient_ref.set({
+          fname: user_data.fname,
+          lname: user_data.lname,
+          contactNo: user_data.tel,
+          condition: user_data.condition,
+          age: user_data.age
+      })
+
+  }).catch(function(error){
+      console.log("Error creating user:", error);
+  });
+
+  // let newPatient = firebase.database().ref("patients_flattened");
+  // newPatient.push(req.body);
+  // console.log(newPatient.ref.key);
   res.render("addPatient");
 });
 

@@ -10,6 +10,7 @@ block content
                         label(for='fname') Patient First Name
                         input#fname(type='text', placeholder='First Name',
                         required='true', autofocus='true' name='fname')
+
                     div.input-field
                         label(for='lname') Patient Last Name
                         input#lname(type='text', placeholder='Last Name',
@@ -25,8 +26,17 @@ block content
                         label Condition
 
                     div.input-field
+                        label(for='user_email') Patient Email Address
+                        input#user_email(type='email', placeholder='e-mail',
+                        required='true', autofocus='true' name='user_email')
+                    div.input-field
+                        label(for='user_password') Patient Desired Password
+                        input#user_password(type='password', placeholder='password',
+                        required='true', autofocus='true' name='user_password')
+
+                    div.input-field
                         label(for='tel') First of kin contact number
-                        input#tel(type="tel" placeholder="0871234567")
+                        input#tel(type="tel" placeholder="0871234567" name="tel")
 
                     div.input-field
                         select#carer(name='carerID')
