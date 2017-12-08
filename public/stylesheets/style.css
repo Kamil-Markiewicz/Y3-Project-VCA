@@ -1,34 +1,4 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
-
-a {
-  color: #00B7FF; }
-
-.main-content {
-  margin-top: 2em; }
-
-nav {
-  background-color: skyblue; }
-  nav li {
-    margin: auto 1em; }
-    nav li a {
-      color: grey !important; }
-      nav li a:hover {
-        color: lightcyan; }
-  nav .active a.nav-link {
-    color: black !important; }
-  nav .navbar-brand {
-    color: white; }
-
-input[type='email'], input[type='password'] {
-  margin-bottom: 1em; }
-
-input[type='submit'] {
-  margin-top: 2em;
-  text-align: center; }
-
-.card-header {
-  text-transform: capitalize; }
+.home {
+  margin-top: 1.5em; }
 
 /*# sourceMappingURL=style.css.map */

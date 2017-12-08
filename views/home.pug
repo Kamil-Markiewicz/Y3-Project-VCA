@@ -2,19 +2,16 @@ extends layout
 
 block content
   div.container
-    div.row
-
-      div.col-md-12.main-content
-        //#{carer.Patients.Billy.fname}
-        //h2 Monitor patients of Carer #{carer.Patients.Billy.fname}
-        div.row
-        for patient, patientId in patients
-          div.col-sm-12
-            .card
-              h1=test
-              h3.card-header Name: #{patient.fname} #{patient.lname}
-              .card-block
-                h4.card-title Condition: #{patient.condition}
+    div.row.home
+      //form
+        input(type="search" name="search" id="search").form-control
+      for patient, patientId in patients
+        .col.s12
+          .card.light-blue
+            .card-content.white-text
+              span.card-title Name: #{patient.fname} #{patient.lname}
+              p
+                h4 Condition: #{patient.condition}
                 p.card-text #{patient.age} years old
                 p.card-text
                   a(type="tel" href="tel:" + patient.contactNo) #{patient.contactNo}
@@ -23,15 +20,15 @@ block content
                   input.hidden(type="hidden" name="patientId" value=patientId)
                   input(type="submit" value="Remove Patient").btn.btn-danger
 
-              if patient.lat != undefined && patient.long != undefined
-                iframe(width="100%", height="400", frameborder="0", id="map" + index,
-                style="border:0; display:block;"
-                src='https://www.google.com/maps/embed/v1/place?' +
-                'key=AIzaSyDqIZZQknynh-WN6s5JNkyDG_HfVMY_cBU&q=' +
-                patient.lat + ',' + patient.long)
-              else
-                h5.text-center No Location data stored
+                if patient.lat !== undefined && patient.long !== undefined
+                  iframe(width="100%", height="400", frameborder="0", id="map" + index,
+                  style="border:0; display:block;"
+                  src='https://www.google.com/maps/embed/v1/place?' +
+                  'key=AIzaSyDqIZZQknynh-WN6s5JNkyDG_HfVMY_cBU&q=' +
+                  patient.lat + ',' + patient.long)
+                else
+                  h5.text-center No Location data stored
 
             //button(
             //onclick="document.getElementById('map" + index + "').display = 'none'"
-            //) View location of #{index}
+          //) View location of #{index}
