@@ -9,18 +9,17 @@ function getPatients() {
 }
 
 getPatients().then(patients => {
-    console.log(JSON.stringify(patients, null, 2));
+   console.log(JSON.stringify(patients, null, 2));
    app.locals.patients = patients;
 });
 
-/* GET login page */
+/* GET home page */
 router.get("/", (req, res, next) => {
   getPatients().then(patients => {
       app.locals.patients = patients;
   }).then(() => {
       res.render("home");
   });
-
 });
 
 module.exports = router;
