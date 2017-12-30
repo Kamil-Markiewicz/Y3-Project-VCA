@@ -42,6 +42,7 @@ html
           });
 
           $('select').material_select();
+          $(".button-collapse").sideNav();
       });
 
   body
@@ -52,19 +53,30 @@ html
           li
               a(href='/addPatient') Add Patient
           li
-              a(href='#') Manage Geofencing
+              a(href='/addGeofence') Manage Geofencing
           li
               a(href='/home') Monitor Patient
           li
-              a(href='/manageBusinesses') Manage Restaurants
+              a(href='/manageBusinesses') Manage Businesses
           li
               a(href='#') Remote Camera
           li
               form#logoutForm(method="GET", hidden, action="/")
               a#logoutButton(href="#") Logout
-      ul#nav-mobile.side-nav
-       li
-        a(href='#') Navbar Link
+      ul#nav-mobile.side-nav.light-blue
+          li
+              a.white-text(href='/addPatient') Add Patient
+          li
+              a.white-text(href='/addGeofence') Manage Geofencing
+          li
+              a.white-text(href='/home') Monitor Patient
+          li
+              a.white-text(href='/manageBusinesses') Manage Businesses
+          li
+              a.white-text(href='#') Remote Camera
+          li
+              form#logoutFormMob(method="GET", hidden, action="/")
+              a.white-text#logoutButtonMob(href="#") Logout
       a.button-collapse(href='#', data-activates='nav-mobile')
        i.material-icons menu
 

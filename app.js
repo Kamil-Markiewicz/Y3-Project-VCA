@@ -8,6 +8,14 @@ const sassMiddleware = require("node-sass-middleware");
 const firebase = require("firebase-admin");
 const functions = require("firebase-functions");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+//const router = express.Router;
+const app = express();
+const serviceAccount = require("./bin/serviceAccountKey.json");
+
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: "https://y3-project-vca.firebaseio.com/"
+});
 
 const index = require("./routes/index");
 const home = require("./routes/home");
@@ -15,14 +23,8 @@ const addPatient = require("./routes/addPatient");
 const addGeofence = require('./routes/addGeofence');
 const manageBusinesses = require("./routes/manageBusinesses");
 
-const app = express();
-
-const serviceAccount = require("./bin/serviceAccountKey.json");
-
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount),
-  databaseURL: "https://y3-project-vca.firebaseio.com/"
-});
+//const $$ = require('./public/javascript/modules/bling');
+//const auto = require('./public/javascript/modules/geoAutocomplete');
 
 function carerLogin() {
   const ref = firebase.database().ref("carers_flattened");
@@ -48,7 +50,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+app.use(favicon(path.join(__dirname, "public", "favicon.png")));
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -67,31 +69,7 @@ app.use("/addPatient", addPatient);
 app.use("/addGeofence", addGeofence);
 app.use("/manageBusinesses", manageBusinesses);
 
-// Route homepage
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
-app.get("/home", (req, res) => {
-  getPatients().then(patients => {
-      app.locals.patients = patients;
-  }).then(() => {
-      res.render("home");
-  });
-
-});
-
-app.get("/addPatient", (req, res) => {
-  res.render("addPatient");
-});
-
-app.get("/addGeofence", (req, res)=> {
-    res.render("addGeofence");
-});
-
-app.get("/manageBusinesses", (req, res) => {
-  res.render("manageBusinesses");
-});
+//auto.getAutocomplete( $$('#address'), $$('#lat'), $$('#long') );
 
 // add patient endpoint
 app.post("/addPatient", urlencodedParser, (req, res) => {

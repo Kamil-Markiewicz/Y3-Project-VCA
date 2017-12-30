@@ -1,5 +1,5 @@
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+const $$ = document.querySelector.bind(document);
+//const $$ = document.querySelectorAll.bind(document);
 
 Node.prototype.on = window.on = function (name, fn) {
     this.addEventListener(name, fn);
@@ -14,4 +14,4 @@ NodeList.prototype.on = NodeList.prototype.
     });
 };
 
-export { $, $$};
+//export default $$;
