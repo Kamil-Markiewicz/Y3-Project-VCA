@@ -42,7 +42,19 @@ html
           });
 
           $('select').material_select();
+          $(".button-collapse").sideNav();
       });
+
+      /* this is a callback that will get called when the user's auth-state changes.
+      It is also called once as soon as it is passed, which will allow for auto-sign-in. */
+      firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+              console.log("Firebase callback: user is signed in.");
+              console.log("    -uID is:" + user.uid);
+          } else {
+              console.log("Firebase callback: No user currently signed in.");
+          }
+      })
 
   body
     nav.light-blue(role='navigation')
@@ -50,21 +62,32 @@ html
       //a#logo-container.brand-logo(href='#') Logo
       ul.left.hide-on-med-and-down
           li
-              a(href='/addPatient') Add Patient
+              a(href='/addPatient' + userQuery) Add Patient
           li
-              a(href='#') Manage Geofencing
+              a(href='/addGeofence' + userQuery) Manage Geofencing
           li
-              a(href='/home') Monitor Patient
+              a(href='/home' + userQuery) Monitor Patient
           li
-              a(href='/manageBusinesses') Manage Restaurants
+              a(href='/manageBusinesses' + userQuery) Manage Businesses
           li
               a(href='#') Remote Camera
           li
               form#logoutForm(method="GET", hidden, action="/")
               a#logoutButton(href="#") Logout
-      ul#nav-mobile.side-nav
-       li
-        a(href='#') Navbar Link
+      ul#nav-mobile.side-nav.light-blue
+          li
+              a.white-text(href='/addPatient' + userQuery) Add Patient
+          li
+              a.white-text(href='/addGeofence' + userQuery) Manage Geofencing
+          li
+              a.white-text(href='/home' + userQuery) Monitor Patient
+          li
+              a.white-text(href='/manageBusinesses' + userQuery) Manage Businesses
+          li
+              a.white-text(href='#') Remote Camera
+          li
+              form#logoutFormMob(method="GET", hidden, action="/")
+              a.white-text#logoutButtonMob(href="#") Logout
       a.button-collapse(href='#', data-activates='nav-mobile')
        i.material-icons menu
 

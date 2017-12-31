@@ -3,12 +3,12 @@ extends layout
 block content
     div.container
         div.row
-            div.col-md-12.main-content
-                form(method='POST' action='/addGeofence').form-signin.col-md-6.offset-3
+            div.main-content
+                form(method='POST' action='/addGeofence').form-signin
                     h3.form-signin-heading Add a Geofence
                     div.form-group
                         label(for='address') Address
-                        input.form-control(type='name' id='address', placeholder='Address',
+                        input.form-control(type='text' id='address', placeholder='Address',
                         required='true', autofocus='true' name='address')
                     div.form-group(style="display: none;")
                         input.form-control(type='number' id='lat', placeholder='Address',
