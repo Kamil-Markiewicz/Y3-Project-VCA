@@ -45,6 +45,17 @@ html
           $(".button-collapse").sideNav();
       });
 
+      /* this is a callback that will get called when the user's auth-state changes.
+      It is also called once as soon as it is passed, which will allow for auto-sign-in. */
+      firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+              console.log("Firebase callback: user is signed in.");
+              console.log("    -uID is:" + user.uid);
+          } else {
+              console.log("Firebase callback: No user currently signed in.");
+          }
+      })
+
   body
     nav.light-blue(role='navigation')
      .nav-wrapper.container
