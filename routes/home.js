@@ -25,6 +25,7 @@ router.get("/", (req, res, next) => {
     }).then(() => {
         res.render("home", {title: "Carer Home", patients: patient_objs});
     });
+
 });
 
 module.exports = router;
