@@ -62,13 +62,13 @@ html
       //a#logo-container.brand-logo(href='#') Logo
       ul.left.hide-on-med-and-down
           li
-              a(href='/addPatient') Add Patient
+              a(href='/addPatient' + userQuery) Add Patient
           li
-              a(href='/addGeofence') Manage Geofencing
+              a(href='/addGeofence' + userQuery) Manage Geofencing
           li
-              a(href='/home') Monitor Patient
+              a(href='/home' + userQuery) Monitor Patient
           li
-              a(href='/manageBusinesses') Manage Businesses
+              a(href='/manageBusinesses' + userQuery) Manage Businesses
           li
               a(href='#') Remote Camera
           li
@@ -76,13 +76,13 @@ html
               a#logoutButton(href="#") Logout
       ul#nav-mobile.side-nav.light-blue
           li
-              a.white-text(href='/addPatient') Add Patient
+              a.white-text(href='/addPatient' + userQuery) Add Patient
           li
-              a.white-text(href='/addGeofence') Manage Geofencing
+              a.white-text(href='/addGeofence' + userQuery) Manage Geofencing
           li
-              a.white-text(href='/home') Monitor Patient
+              a.white-text(href='/home' + userQuery) Monitor Patient
           li
-              a.white-text(href='/manageBusinesses') Manage Businesses
+              a.white-text(href='/manageBusinesses' + userQuery) Manage Businesses
           li
               a.white-text(href='#') Remote Camera
           li
