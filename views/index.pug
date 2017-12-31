@@ -41,7 +41,7 @@ html
                 })
             });
 
-            /* this is a callback that will get called when the user's suth-state changes.
+            /* this is a callback that will get called when the user's auth-state changes.
             It is also called once as soon as it is passed, which will allow for auto-sign-in. */
             firebase.auth().onAuthStateChanged(function(user){
                 if (user) {

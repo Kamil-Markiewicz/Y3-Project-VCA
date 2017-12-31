@@ -132,8 +132,10 @@ app.post("/removePatient", urlencodedParser, (req, res) => {
 app.post("/loginCarer", urlencodedParser, (req, res) => {
     data = req.body;
     uID = data.uID;
-    console.log("uID Received: " + uID);
-    res.redirect("/home");
+    console.log("Login uID Received: " + uID);
+    
+    let redir_url = "/home?uid=" + uID;
+    res.redirect(redir_url);
 });
 
 // catch 404 and forward to error handler
