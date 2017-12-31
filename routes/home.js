@@ -15,6 +15,8 @@ getPatients().then(patients => {
 
 router.get("/", (req, res, next) => {
     let data = url.parse(req.url, true).query;
+    let hrefQuery = "?uid="+ data.uid;
+
     let patient_objs = {};
     getPatients().then(patients => {
         for (patient in patients){
@@ -23,7 +25,7 @@ router.get("/", (req, res, next) => {
             }
         }
     }).then(() => {
-        res.render("home", {title: "Carer Home", patients: patient_objs});
+        res.render("home", {title: "Carer Home", patients: patient_objs, userQuery: hrefQuery});
     });
 
 });
