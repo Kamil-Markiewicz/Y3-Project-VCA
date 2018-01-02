@@ -50,8 +50,9 @@ html
                     console.log("    -uID is:" + user.uid);
                 }else {
                     console.log("Firebase callback: No user currently signed in.");
-                    }
-                })
+
+                }
+            })
 
             function signIn(email, password){ //script for auth-ing with Firebase
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(

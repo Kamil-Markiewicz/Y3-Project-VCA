@@ -80,21 +80,27 @@ app.post("/addPatient", urlencodedParser, (req, res) => {
             let path = "patients_flattened/" + userRecord.uid;
             let patient_ref = firebase.database().ref(path);
             patient_ref.set({
+                carerID: user_data.carerId,
                 fname: user_data.fname,
                 lname: user_data.lname,
                 contactNo: user_data.tel,
                 condition: user_data.condition,
                 age: user_data.age
-            })
+            });
+
+            //finally, add the patient to carer's list
+            let carer_ref = firebase.database().ref("carers_flattened/" + user_data.carerId + "/patients");
+            carer_ref.push(userRecord.uid);
         })
         .catch((error) => {
             console.log("Error creating user:", error);
+            let hrefQuery = "?uid="+ data.uid;
+            res.render("addPatient", {title: "Add a Patient", userQuery: hrefQuery, carerId: user_data.carerId, error: "Error creating new user :("}) ;
         });
-
     // let newPatient = firebase.database().ref("patients_flattened");
     // newPatient.push(req.body);
     // console.log(newPatient.ref.key);
-    res.render("addPatient");
+    res.redirect("/home?uid=" + user_data.carerId);
 });
 
 // add restaurant endpoint
@@ -115,6 +121,9 @@ app.post("/manageBusinesses", urlencodedParser, (req, res) => {
     res.render("manageBusinesses");
 });
 
+
+
+
 // remove patient endpoint
 app.post("/removePatient", urlencodedParser, (req, res) => {
     let ref = firebase.database().ref("patients_flattened");
@@ -122,7 +131,7 @@ app.post("/removePatient", urlencodedParser, (req, res) => {
         getPatients().then((patients) => {
             app.locals.patients = patients
         }).then(() => {
-            res.redirect("/home");
+            res.redirect("/home?uid=" + req.body.uid);
         });
     });
     console.log(`Removed patient ${req.body.patientId}`);

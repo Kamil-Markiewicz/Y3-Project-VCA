@@ -38,10 +38,6 @@ block content
                         label(for='tel') First of kin contact number
                         input#tel(type="tel" placeholder="0871234567" name="tel")
 
-                    div.input-field
-                        select#carer(name='carerID')
-                            option(value='OuEriORcMkZIdX510lRnYdc7ksF2') John
-                            option(value='OuEriORcMkZIdX510lRnYdc7ksF2') Sean
-                        label Carer
+                    input.hidden(name="carerId" type="hidden" value=carerId)
 
                     input#submit.btn.btn-info(type='submit')
