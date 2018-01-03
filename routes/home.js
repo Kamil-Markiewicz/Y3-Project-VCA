@@ -59,7 +59,7 @@ router.post("/editPatient", (req, res, next) => {
             }
             if (age !== "" && !isNaN(age)) {
                 let patient_ref = firebase.database().ref("patients_flattened/" + patient_uid + "/age");
-                patient_ref.set(age);
+                patient_ref.set(parseInt(age));
             }
             if (condition !== "") {
                 let patient_ref = firebase.database().ref("patients_flattened/" + patient_uid + "/condition");
