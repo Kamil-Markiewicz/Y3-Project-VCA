@@ -7,7 +7,7 @@ router.get("/", (req, res, next) => {
     let data = url.parse(req.url, true).query;
     let hrefQuery = "?uid="+ data.uid;
 
-    res.render("addGeofence", {title: "Add a Geofence", userQuery: hrefQuery});
+    res.render("geofence", {title: "Add a Geofence", userQuery: hrefQuery});
 });
 
 module.exports = router;
