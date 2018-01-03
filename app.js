@@ -85,7 +85,7 @@ app.post("/addPatient", urlencodedParser, (req, res) => {
                 lname: user_data.lname,
                 contactNo: user_data.tel,
                 condition: user_data.condition,
-                age: user_data.age
+                age: parseInt(user_data.age)
             });
 
             //finally, add the patient to carer's list
