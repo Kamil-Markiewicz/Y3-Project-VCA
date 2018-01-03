@@ -90,8 +90,8 @@ app.post("/addPatient", urlencodedParser, (req, res) => {
             let carer_ref = firebase.database().ref("carers_flattened/" + user_data.carerId + "/patients");
             carer_ref.push(userRecord.uid);
         }).then(() => {
-        res.redirect("/home?uid=" + user_data.carerId);
-    })
+            res.redirect("/home?uid=" + user_data.carerId);
+        })
         .catch((error) => {
             console.log("Error creating user:", error);
             let hrefQuery = "?uid="+ data.uid;
