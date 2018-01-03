@@ -97,7 +97,6 @@ app.post("/addPatient", urlencodedParser, (req, res) => {
             let hrefQuery = "?uid="+ data.uid;
             res.render("addPatient", {title: "Add a Patient", userQuery: hrefQuery, carerId: user_data.carerId, error: "Error creating new user :("}) ;
         });
-
 });
 
 // add restaurant endpoint
