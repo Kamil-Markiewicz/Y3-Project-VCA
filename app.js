@@ -89,16 +89,14 @@ app.post("/addPatient", urlencodedParser, (req, res) => {
             //finally, add the patient to carer's list
             let carer_ref = firebase.database().ref("carers_flattened/" + user_data.carerId + "/patients");
             carer_ref.push(userRecord.uid);
+        }).then(() => {
+            res.redirect("/home?uid=" + user_data.carerId);
         })
         .catch((error) => {
             console.log("Error creating user:", error);
             let hrefQuery = "?uid="+ data.uid;
             res.render("addPatient", {title: "Add a Patient", userQuery: hrefQuery, carerId: user_data.carerId, error: "Error creating new user :("}) ;
         });
-    // let newPatient = firebase.database().ref("patients_flattened");
-    // newPatient.push(req.body);
-    // console.log(newPatient.ref.key);
-    res.redirect("/home?uid=" + user_data.carerId);
 });
 
 // add restaurant endpoint
