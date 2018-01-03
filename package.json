@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "bling": "^0.11.5",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "^2.6.9",
@@ -17,7 +16,6 @@
     "morgan": "~1.8.1",
     "node-sass-middleware": "0.9.8",
     "pug": "~2.0.0-beta11",
-    "serve-favicon": "^2.4.5",
-    "shortid": "^2.2.8"
+    "serve-favicon": "^2.4.5"
   }
 }
