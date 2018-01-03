@@ -1,4 +1,13 @@
 .home {
   margin-top: 1.5em; }
+  .home .btn {
+    margin-right: 1em; }
+
+.card-panel .row .col, .card-panel .row .input-field {
+  margin-left: 0.75em;
+  margin-right: 0.75em; }
+
+#mapundefined {
+  margin-top: 1em; }
 
 /*# sourceMappingURL=style.css.map */
