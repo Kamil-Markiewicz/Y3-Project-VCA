@@ -6,9 +6,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const sassMiddleware = require("node-sass-middleware");
 const firebase = require("firebase-admin");
-const functions = require("firebase-functions");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-//const router = express.Router;
 const app = express();
 const serviceAccount = require("./bin/serviceAccountKey.json");
 
