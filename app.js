@@ -18,7 +18,7 @@ firebase.initializeApp({
 const index = require("./routes/index");
 const home = require("./routes/home");
 const addPatient = require("./routes/addPatient");
-const addGeofence = require('./routes/addGeofence');
+const geofence = require('./routes/geofence');
 const manageBusinesses = require("./routes/manageBusinesses");
 
 function carerLogin() {
@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", index);
 app.use("/home", home);
 app.use("/addPatient", addPatient);
-app.use("/addGeofence", addGeofence);
+app.use("/geofence", geofence);
 app.use("/manageBusinesses", manageBusinesses);
 
 //auto.getAutocomplete( $$('#address'), $$('#lat'), $$('#long') );
@@ -116,9 +116,6 @@ app.post("/manageBusinesses", urlencodedParser, (req, res) => {
     }
     res.render("manageBusinesses");
 });
-
-
-
 
 // remove patient endpoint
 app.post("/removePatient", urlencodedParser, (req, res) => {
