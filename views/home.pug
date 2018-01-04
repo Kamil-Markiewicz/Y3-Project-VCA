@@ -18,6 +18,11 @@ block content
       for patient, patientId in patients
         .card.light-blue
           .card-content.white-text
+            if (patient.isOutsideGeofence)
+              i.material-icons.md-48.red-text.col warning
+              p.card-title.col This patient has left the geofence. It is strongly recommended you contact them immediately.
+              br
+              br
             span.card-title Name: #{patient.fname} #{patient.lname}
             p
               p.card-text Condition: #{patient.condition}
