@@ -1,11 +1,11 @@
 doctype html
-html
+html(lang="en")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=6, user-scalable=no")
 
     script(src="https://code.jquery.com/jquery-3.1.1.min.js")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js')
@@ -14,8 +14,6 @@ html
     //Firebase APIs
     script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js')
     script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js')
-    script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js')
-    script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js')
     script(src='https://www.gstatic.com/firebasejs/4.6.2/firebase.js')
     script.
         // Initialize Firebase
@@ -62,28 +60,28 @@ html
       //a#logo-container.brand-logo(href='#') Logo
       ul.left.hide-on-med-and-down
           li
-              a(href='/addPatient' + userQuery) Add Patient
-          li
-              a(href='/addGeofence' + userQuery) Manage Geofencing
-          li
               a(href='/home' + userQuery) Monitor Patient
           li
-              a(href='/manageBusinesses' + userQuery) Manage Businesses
+              a(href='/addPatient' + userQuery) Add Patient
           li
+              a(href='/geofence' + userQuery) Manage Geofencing
+          li
+              a(href='/manageBusinesses' + userQuery) Manage Businesses
+          li.hide
               a(href='#') Remote Camera
           li
               form#logoutForm(method="GET", hidden, action="/")
               a#logoutButton(href="#") Logout
       ul#nav-mobile.side-nav.light-blue
           li
-              a.white-text(href='/addPatient' + userQuery) Add Patient
-          li
-              a.white-text(href='/addGeofence' + userQuery) Manage Geofencing
-          li
               a.white-text(href='/home' + userQuery) Monitor Patient
           li
-              a.white-text(href='/manageBusinesses' + userQuery) Manage Businesses
+              a.white-text(href='/addPatient' + userQuery) Add Patient
           li
+              a.white-text(href='/geofence' + userQuery) Manage Geofencing
+          li
+              a.white-text(href='/manageBusinesses' + userQuery) Manage Businesses
+          li.hide
               a.white-text(href='#') Remote Camera
           li
               form#logoutFormMob(method="GET", hidden, action="/")

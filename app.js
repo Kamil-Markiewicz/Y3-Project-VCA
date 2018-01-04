@@ -18,7 +18,7 @@ firebase.initializeApp({
 const index = require("./routes/index");
 const home = require("./routes/home");
 const addPatient = require("./routes/addPatient");
-const addGeofence = require('./routes/addGeofence');
+const geofence = require('./routes/geofence');
 const manageBusinesses = require("./routes/manageBusinesses");
 
 function carerLogin() {
@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", index);
 app.use("/home", home);
 app.use("/addPatient", addPatient);
-app.use("/addGeofence", addGeofence);
+app.use("/geofence", geofence);
 app.use("/manageBusinesses", manageBusinesses);
 
 //auto.getAutocomplete( $$('#address'), $$('#lat'), $$('#long') );
@@ -117,19 +117,32 @@ app.post("/manageBusinesses", urlencodedParser, (req, res) => {
     res.render("manageBusinesses");
 });
 
-
-
-
 // remove patient endpoint
 app.post("/removePatient", urlencodedParser, (req, res) => {
     let ref = firebase.database().ref("patients_flattened");
+    let carer_ref;
+    let carer_uid = req.body.uid;
+
+    if (req.body.uid){
+        carer_ref = firebase.database().ref("carers_flattened/" + carer_uid + "/patients");
+    }
+
     ref.child(req.body.patientId).remove().then(() => {
         getPatients().then((patients) => {
             app.locals.patients = patients
         }).then(() => {
+            if (carer_ref){
+                carer_ref.orderByValue().equalTo(req.body.patientId).once("child_added").then(function(snapshot){
+                    if (snapshot.val()){
+                        let patient_ref = firebase.database().ref("carers_flattened/" + carer_uid + "/patients/" + snapshot.key);
+                        patient_ref.remove();
+                    }
+                })
+            }
             res.redirect("/home?uid=" + req.body.uid);
         });
     });
+    firebase.auth().deleteUser(req.body.patientId);
     console.log(`Removed patient ${req.body.patientId}`);
 });
 
@@ -138,7 +151,7 @@ app.post("/loginCarer", urlencodedParser, (req, res) => {
     data = req.body;
     uID = data.uID;
     console.log("Login uID Received: " + uID);
-    
+
     let redir_url = "/home?uid=" + uID;
     res.redirect(redir_url);
 });

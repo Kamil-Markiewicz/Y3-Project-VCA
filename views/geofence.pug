@@ -4,7 +4,7 @@ block content
     div.container
         div.row
             div.main-content
-                form(method='POST' action='/addGeofence').form-signin
+                form(method='POST' action='/geofence/add').form-signin
                     h3.form-signin-heading Add a Geofence
                     div.form-group
                         label(for='address') Address
@@ -17,13 +17,7 @@ block content
                         input.form-control(type='number' id='long', autofocus='true' name='long')
                     div.form-group
                         label(for='patient') Patient
-                        select.form-control(name='condition' id='patient')
-                            option(value='Patient1') Patient1
-                            option(value='Patient2') Patient2
-
-                    label(for='carer') Carer
-                    select.form-control(name='carerID' id='carer')
-                        option(value='OuEriORcMkZIdX510lRnYdc7ksF2') John
-                        option(value='OuEriORcMkZIdX510lRnYdc7ksF2') Sean
+                        select.form-control(name='patient_uid' id='patient')
+                            option(value='xM6hF7cZzHMY2jK4A6BXFcdBNY12') Alex O Regan
 
                     input.btn.btn-info(type='submit' id='submit')
