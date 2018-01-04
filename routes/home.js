@@ -9,6 +9,14 @@ function getPatients() {
     return ref.once("value").then(snap => snap.val());
 }
 
+function getDistance(x1, y1, x2, y2){
+    x2_x1_sqr = Math.pow(x2 - x1, 2);
+    y2_y1_sqr = Math.pow(y2 - y2, 2);
+    sum = x2_x1_sqr + y2_y1_sqr;
+    distance = Math.sqrt(sum);
+    return distance;
+}
+
 getPatients().then(patients => {
     console.log(JSON.stringify(patients, null, 2));
 });
@@ -28,6 +36,26 @@ router.get("/", (req, res, next) => {
     getPatients().then(patients => {
         for (patient in patients){
             if (patients[patient].carerID === data.uid){
+
+                if (patients[patient].lat
+                && patients[patient].long
+                && patients[patient].geofenceLat
+                && patients[patient].geofenceLong
+                && patients[patient].geofenceRadius) {
+                    let patient_lat = patients[patient].lat;
+                    let patient_lon = patients[patient].long;
+                    let geofence_lat = patients[patient].geofenceLat;
+                    let geofence_lon = patients[patient].geofenceLong;
+                    let geofence_radius = patients[patient].geofenceRadius;
+
+                    let distance_from_origin = getDistance(patient_lat, geofence_lat, patient_lon, geofence_lon);
+                    if (distance_from_origin > geofence_radius) {
+                        patients[patient].isOutsideGeofence = true;
+                    } else {
+                        patients[patient].isOutsideGeofence = false;
+                    }
+                }
+
                 patient_objs[patient] = patients[patient];
             }
         }

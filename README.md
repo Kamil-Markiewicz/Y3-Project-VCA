@@ -5,9 +5,9 @@
 
 ### Tech
 
-Dillinger uses a number of open source projects to work properly:
+Server uses a number of open source projects to function:
 
-* [Twitter BootstrapV4] - UI boilerplate for modern web apps
+* [Materialise] - UI boilerplate for modern web apps
 * [node.js] - evented I/O for the backend
 * [Express] - fast node.js network app framework
 * [jQuery]
@@ -20,3 +20,5 @@ VCA requires [Node.js](https://nodejs.org/) v8.4+ to run.
    [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
    [jQuery]: <http://jquery.com>
    [express]: <http://expressjs.com>
+
+Run 'npm install' in project root install dependencies for this server.
